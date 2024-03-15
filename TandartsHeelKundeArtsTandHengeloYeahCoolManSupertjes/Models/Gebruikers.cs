@@ -18,6 +18,6 @@ namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models
         public string zorgverzekeraar { get; set; }
         public int Klantnummer { get; set; }
         public string Email { get; set; }
-        public int Telefoon {  get; set; }
+        public string Telefoon {  get; set; }
     }
 }
