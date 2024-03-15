@@ -5,6 +5,6 @@ namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models
     public class Tandartsassistent
     {
         public int ID { get; set; }
-        public Gebruikers Gebruiker { get; set; }
+        public Gebruiker Gebruiker { get; set; }
     }
 }

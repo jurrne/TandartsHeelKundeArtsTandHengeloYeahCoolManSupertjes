@@ -3,7 +3,7 @@
 
 namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models
 {
-    public class Gebruikers
+    public class Gebruiker
     {
         [StringLength(50, ErrorMessage = "Maximumlengte van {0} is {1} tekens")]
         [Key]
