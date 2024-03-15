@@ -1,8 +1,7 @@
 ﻿namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models
 {
-    public class Afspraken
+    public class Afspraak
     {
         public int ID { get; set; }
-        
     }
 }
