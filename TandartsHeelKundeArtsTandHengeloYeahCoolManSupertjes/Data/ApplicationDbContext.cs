@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Server.Circuits;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Metrics;
 using TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models;
 
 namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data
