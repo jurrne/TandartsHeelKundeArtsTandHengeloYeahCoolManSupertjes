@@ -7,6 +7,6 @@ namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models
         public int ID { get; set; }
         public string Type { get; set; }
         public int Tijd_in_min { get; set; }
-        public decimal Prijs { get; set; }
+        public int Prijs { get; set; }
     }
 }
