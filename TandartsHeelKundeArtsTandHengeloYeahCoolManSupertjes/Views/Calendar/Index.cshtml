@@ -12,7 +12,16 @@
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridWeek',
+                initialView: 'timeGridWeek',
+                headerToolbar: {
+                    left: 'prev,next',
+                    center: 'title',
+                    right: 'today,timeGridWeek,timeGridDay'
+                },
+                eventMinHeight: 10,
+                allDaySlot: false,
+                slotDuration: '00:10:00',
+                nowIndicator: true,
                 dateClick: function (info) {
                     console.log(info.dateStr);
                 }
