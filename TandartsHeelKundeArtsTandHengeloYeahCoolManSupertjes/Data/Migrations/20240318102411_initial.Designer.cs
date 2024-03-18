@@ -12,7 +12,7 @@ using TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data;
 namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240318101917_initial")]
+    [Migration("20240318102411_initial")]
     partial class initial
     {
         /// <inheritdoc />
