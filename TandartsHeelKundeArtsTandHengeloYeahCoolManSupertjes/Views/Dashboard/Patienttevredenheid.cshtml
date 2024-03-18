@@ -1,0 +1,29 @@
+﻿@model List<Tuple<string, int>>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patiënttevredenheid Dashboard</title>
+    <!-- Voeg eventuele CSS-stijlen toe -->
+</head>
+<body>
+    <h1>Patiënttevredenheid Dashboard</h1>
+
+    <table border="1">
+        <tr>
+            <th>Ziekenhuis</th>
+            <th>Tevredenheid (%)</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Item1</td>
+                <td>@item.Item2</td>
+            </tr>
+        }
+    </table>
+
+    <!-- Voeg eventuele JavaScript-bibliotheken toe voor visualisaties (bijv. Chart.js, D3.js) -->
+    <!-- Voeg JavaScript-code toe om visualisaties te maken -->
+</body>
+</html>
