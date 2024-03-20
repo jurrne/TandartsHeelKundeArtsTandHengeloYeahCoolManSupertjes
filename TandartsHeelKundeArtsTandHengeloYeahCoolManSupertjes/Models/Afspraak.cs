@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models;
 
 namespace TandartsSuperCool.Models
 {
