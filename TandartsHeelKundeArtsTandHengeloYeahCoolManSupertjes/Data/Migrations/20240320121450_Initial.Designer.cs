@@ -12,8 +12,8 @@ using TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data;
 namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240318102411_initial")]
-    partial class initial
+    [Migration("20240320121450_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,6 +89,11 @@ namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -140,6 +145,10 @@ namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -227,13 +236,16 @@ namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Afspraak", b =>
+            modelBuilder.Entity("TandartsSuperCool.Models.Afspraak", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("BehandelingID")
                         .HasColumnType("int");
@@ -247,37 +259,24 @@ namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data.Migrations
                     b.Property<string>("Notitie")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PatientID")
-                        .HasColumnType("int");
-
                     b.Property<TimeOnly>("Start_tijd")
                         .HasColumnType("time");
 
                     b.Property<TimeOnly>("Stop_tijd")
                         .HasColumnType("time");
 
-                    b.Property<int?>("TandartsID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TandartsassistentID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("BehandelingID");
 
                     b.HasIndex("KamerID");
 
-                    b.HasIndex("PatientID");
-
-                    b.HasIndex("TandartsID");
-
-                    b.HasIndex("TandartsassistentID");
-
                     b.ToTable("Afspraak");
                 });
 
-            modelBuilder.Entity("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Behandeling", b =>
+            modelBuilder.Entity("TandartsSuperCool.Models.Behandeling", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -299,54 +298,7 @@ namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data.Migrations
                     b.ToTable("Behandeling");
                 });
 
-            modelBuilder.Entity("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Gebruiker", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("Achternaam")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Adres")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateOnly>("Geboortedatum")
-                        .HasColumnType("date");
-
-                    b.Property<int>("Klantnummer")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Postcode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Telefoon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tussenvoegsel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Voornaam")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Woonplaats")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Zorgverzekeraar")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Gebruiker");
-                });
-
-            modelBuilder.Entity("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Kamer", b =>
+            modelBuilder.Entity("TandartsSuperCool.Models.Kamer", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -365,64 +317,46 @@ namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data.Migrations
                     b.ToTable("Kamer");
                 });
 
-            modelBuilder.Entity("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Patient", b =>
+            modelBuilder.Entity("TandartsSuperCool.Models.ApplicationUser", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int?>("GebruikerID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Klantnummer")
+                    b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Zorgverzekeraar")
+                    b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.Property<string>("CustomerNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("GebruikerID");
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
-                    b.ToTable("Patient");
-                });
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-            modelBuilder.Entity("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Tandarts", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("HealthInsurer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    b.Property<string>("Infix")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("GebruikerID")
-                        .HasColumnType("int");
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("GebruikerID");
-
-                    b.ToTable("Tandarts");
-                });
-
-            modelBuilder.Entity("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Tandartsassistent", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int?>("GebruikerID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("GebruikerID");
-
-                    b.ToTable("Tandartsassistent");
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -476,64 +410,25 @@ namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Afspraak", b =>
+            modelBuilder.Entity("TandartsSuperCool.Models.Afspraak", b =>
                 {
-                    b.HasOne("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Behandeling", "Behandeling")
+                    b.HasOne("TandartsSuperCool.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("TandartsSuperCool.Models.Behandeling", "Behandeling")
                         .WithMany()
                         .HasForeignKey("BehandelingID");
 
-                    b.HasOne("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Kamer", "Kamer")
+                    b.HasOne("TandartsSuperCool.Models.Kamer", "Kamer")
                         .WithMany()
                         .HasForeignKey("KamerID");
 
-                    b.HasOne("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Patient", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientID");
-
-                    b.HasOne("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Tandarts", "Tandarts")
-                        .WithMany()
-                        .HasForeignKey("TandartsID");
-
-                    b.HasOne("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Tandartsassistent", "Tandartsassistent")
-                        .WithMany()
-                        .HasForeignKey("TandartsassistentID");
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Behandeling");
 
                     b.Navigation("Kamer");
-
-                    b.Navigation("Patient");
-
-                    b.Navigation("Tandarts");
-
-                    b.Navigation("Tandartsassistent");
-                });
-
-            modelBuilder.Entity("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Patient", b =>
-                {
-                    b.HasOne("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Gebruiker", "Gebruiker")
-                        .WithMany()
-                        .HasForeignKey("GebruikerID");
-
-                    b.Navigation("Gebruiker");
-                });
-
-            modelBuilder.Entity("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Tandarts", b =>
-                {
-                    b.HasOne("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Gebruiker", "Gebruiker")
-                        .WithMany()
-                        .HasForeignKey("GebruikerID");
-
-                    b.Navigation("Gebruiker");
-                });
-
-            modelBuilder.Entity("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Tandartsassistent", b =>
-                {
-                    b.HasOne("TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models.Gebruiker", "Gebruiker")
-                        .WithMany()
-                        .HasForeignKey("GebruikerID");
-
-                    b.Navigation("Gebruiker");
                 });
 #pragma warning restore 612, 618
         }

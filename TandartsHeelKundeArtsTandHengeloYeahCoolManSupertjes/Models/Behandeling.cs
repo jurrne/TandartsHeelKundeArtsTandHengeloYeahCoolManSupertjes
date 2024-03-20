@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models
+namespace TandartsSuperCool.Models
 {
     public class Behandeling
     {
