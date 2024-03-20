@@ -5,7 +5,7 @@
 //using Microsoft.AspNetCore.Mvc;
 //using Microsoft.AspNetCore.Mvc.Rendering;
 //using Microsoft.EntityFrameworkCore;
-//using TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data;
+//using TandartsSuperCool.Data;
 //using TandartsSuperCool.Models;
 
 //namespace TandartsSuperCool.Controllers

@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models;
+using TandartsSuperCool.Models;
 
-namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Controllers
+namespace TandartsSuperCool.Controllers
 {
     public class HomeController : Controller
     {

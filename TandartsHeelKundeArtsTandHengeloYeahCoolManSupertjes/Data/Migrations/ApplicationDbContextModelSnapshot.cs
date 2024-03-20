@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data;
+using TandartsSuperCool.Data;
 
 #nullable disable
 
-namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data.Migrations
+namespace TandartsSuperCool.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

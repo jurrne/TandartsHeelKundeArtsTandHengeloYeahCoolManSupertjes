@@ -1,4 +1,4 @@
-namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models
+namespace TandartsSuperCool.Models
 {
     public class ErrorViewModel
     {

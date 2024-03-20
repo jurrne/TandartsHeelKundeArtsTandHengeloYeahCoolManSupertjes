@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
-using TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data;
+using TandartsSuperCool.Data;
 
-namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data.Migrations
+namespace TandartsSuperCool.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]

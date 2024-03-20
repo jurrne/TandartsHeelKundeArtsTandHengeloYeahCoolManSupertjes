@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data.Migrations
+namespace TandartsSuperCool.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

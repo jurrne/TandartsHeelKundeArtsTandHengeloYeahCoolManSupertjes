@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models;
 using TandartsSuperCool.Models;
 
-namespace TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Data
+namespace TandartsSuperCool.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
