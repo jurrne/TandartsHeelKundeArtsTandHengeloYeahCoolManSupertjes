@@ -129,7 +129,7 @@ namespace TandartsSuperCool.Areas.Identity.Pages.Account
                 var user = new ApplicationUser { 
                     FirstName = Input.FirstName, 
                     LastName = Input.LastName,
-                    Email = Input.Email
+                    Email = Input.Email,
                 };
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
@@ -139,13 +139,8 @@ namespace TandartsSuperCool.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
-                    var defaultRole = _roleManager.FindByNameAsync("Patient").Result;
-
-                    if (defaultRole != null)
-                    {
-                        IdentityResult roleResult = await _userManager.AddToRoleAsync(user, defaultRole.Name);
-                    }
+                   
+                    await _userManager.AddToRoleAsync(user, "Patient");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

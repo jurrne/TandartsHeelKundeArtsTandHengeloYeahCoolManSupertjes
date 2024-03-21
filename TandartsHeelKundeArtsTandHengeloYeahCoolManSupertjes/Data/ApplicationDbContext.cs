@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TandartsHeelKundeArtsTandHengeloYeahCoolManSupertjes.Models;
 using TandartsSuperCool.Models;
 
 namespace TandartsSuperCool.Data
