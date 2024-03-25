@@ -111,7 +111,6 @@ namespace TandartsSuperCool.Data.Migrations
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     KamerID = table.Column<int>(type: "int", nullable: true),
                     BehandelingID = table.Column<int>(type: "int", nullable: true),
-                    Notitie = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Datum = table.Column<DateOnly>(type: "date", nullable: false),
                     Start_tijd = table.Column<TimeOnly>(type: "time", nullable: false),
                     Stop_tijd = table.Column<TimeOnly>(type: "time", nullable: false)
@@ -136,6 +135,31 @@ namespace TandartsSuperCool.Data.Migrations
                         principalColumn: "ID");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Notitie",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    AfspraakID = table.Column<int>(type: "int", nullable: true),
+                    Tekst = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notitie", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Notitie_Afspraak_AfspraakID",
+                        column: x => x.AfspraakID,
+                        principalTable: "Afspraak",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_Notitie_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Afspraak_ApplicationUserId",
                 table: "Afspraak",
@@ -150,11 +174,24 @@ namespace TandartsSuperCool.Data.Migrations
                 name: "IX_Afspraak_KamerID",
                 table: "Afspraak",
                 column: "KamerID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notitie_AfspraakID",
+                table: "Notitie",
+                column: "AfspraakID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notitie_ApplicationUserId",
+                table: "Notitie",
+                column: "ApplicationUserId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Notitie");
+
             migrationBuilder.DropTable(
                 name: "Afspraak");
 

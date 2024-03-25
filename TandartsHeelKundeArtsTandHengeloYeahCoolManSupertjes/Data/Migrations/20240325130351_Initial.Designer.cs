@@ -12,7 +12,7 @@ using TandartsSuperCool.Data;
 namespace TandartsSuperCool.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240321104712_Initial")]
+    [Migration("20240325130351_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -256,9 +256,6 @@ namespace TandartsSuperCool.Data.Migrations
                     b.Property<int?>("KamerID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Notitie")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<TimeOnly>("Start_tijd")
                         .HasColumnType("time");
 
@@ -315,6 +312,34 @@ namespace TandartsSuperCool.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Kamer");
+                });
+
+            modelBuilder.Entity("TandartsSuperCool.Models.Notitie", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int?>("AfspraakID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Tekst")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AfspraakID");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Notitie");
                 });
 
             modelBuilder.Entity("TandartsSuperCool.Models.ApplicationUser", b =>
@@ -423,6 +448,21 @@ namespace TandartsSuperCool.Data.Migrations
                     b.Navigation("Behandeling");
 
                     b.Navigation("Kamer");
+                });
+
+            modelBuilder.Entity("TandartsSuperCool.Models.Notitie", b =>
+                {
+                    b.HasOne("TandartsSuperCool.Models.Afspraak", "Afspraak")
+                        .WithMany()
+                        .HasForeignKey("AfspraakID");
+
+                    b.HasOne("TandartsSuperCool.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.Navigation("Afspraak");
+
+                    b.Navigation("ApplicationUser");
                 });
 #pragma warning restore 612, 618
         }

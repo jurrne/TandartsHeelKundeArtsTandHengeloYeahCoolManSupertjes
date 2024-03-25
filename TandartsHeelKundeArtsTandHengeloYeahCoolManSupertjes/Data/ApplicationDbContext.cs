@@ -11,6 +11,8 @@ namespace TandartsSuperCool.Data
         public DbSet<Behandeling> Behandeling { get; set; }
         public DbSet<Kamer> Kamer { get; set; }
 
+        public DbSet<Notitie> Notitie { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
