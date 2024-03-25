@@ -6,10 +6,25 @@
 
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
 <script>
+    function formatFullCalendarDateTime(dateString, timeString) {
+        const [day, month, year] = dateString.split('/');
+
+        // Parse the date and time strings
+        const date = new Date(year, month - 1, day);
+        const timeParts = timeString.split(':');
+
+        // Set date and time components
+        date.setHours(parseInt(timeParts[0]) + 1);
+        date.setMinutes(timeParts[1]);
+
+        // Format the date according to FullCalendar's ISO 8601 standard
+        return date.toISOString().slice(0, 19).replace('Z', '');
+    }
 
     document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
+            locale: 'nl',
             initialView: 'timeGridWeek',
             headerToolbar: {
                 left: 'prev,next',
@@ -21,12 +36,23 @@
             slotDuration: '00:10:00',
             nowIndicator: true,
             dateClick: function (info) {
-                console.log(info.dateStr);
-            }
+                console.log(formatFullCalendarDateTime('2021-10-01', '12:00:00'));
+            },
+            events: [
+                @foreach (var item in Model)
+                {
+                    <text>
+                        {
+                            title: '@item.Notitie',
+                            start: formatFullCalendarDateTime('@item.Datum', '@item.Start_tijd'),
+                            end: formatFullCalendarDateTime('@item.Datum', '@item.Stop_tijd')
+                        },
+                    </text>
+                }
+            ]
         });
         calendar.render();
     });
-
 </script>
 
 <h1>Index</h1>
@@ -34,47 +60,5 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Notitie)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Datum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Start_tijd)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Stop_tijd)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Notitie)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Datum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Start_tijd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Stop_tijd)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
 
 <div id='calendar'></div>
